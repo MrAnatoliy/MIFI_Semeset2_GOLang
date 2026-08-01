@@ -1,0 +1,72 @@
+services:
+  db:
+    image: postgres:17-alpine
+    container_name: bank-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-bank}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-bank}
+      POSTGRES_DB: ${DB_NAME:-bank}
+    ports:
+      - "${DB_EXPOSED_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-bank} -d ${DB_NAME:-bank}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Локальная «заглушка» SMTP: веб-интерфейс на http://localhost:8025
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: bank-mailhog
+    restart: unless-stopped
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bank-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      mailhog:
+        condition: service_started
+    environment:
+      APP_PORT: "8080"
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_USER: ${DB_USER:-bank}
+      DB_PASSWORD: ${DB_PASSWORD:-bank}
+      DB_NAME: ${DB_NAME:-bank}
+      DB_SSLMODE: disable
+
+      JWT_SECRET: ${JWT_SECRET:-super-secret-jwt-key-change-me}
+      JWT_TTL_HOURS: "24"
+      HMAC_SECRET: ${HMAC_SECRET:-super-secret-hmac-key-change-me}
+      PGP_PASSPHRASE: ${PGP_PASSPHRASE:-super-secret-pgp-passphrase}
+
+      SMTP_ENABLED: "true"
+      SMTP_HOST: mailhog
+      SMTP_PORT: "1025"
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
+      SMTP_FROM: noreply@bank.local
+
+      SCHEDULER_INTERVAL_HOURS: "12"
+      BANK_MARGIN: "5"
+      FALLBACK_KEY_RATE: "16"
+      PENALTY_RATE: "0.10"
+      MAX_PREDICT_DAYS: "365"
+    ports:
+      - "${API_PORT:-8080}:8080"
+
+volumes:
+  pgdata:
