@@ -24,7 +24,7 @@ const (
 	StatusDefaulted = "defaulted"
 )
 
-// User — пользователь сервиса.
+// User - пользователь сервиса.
 type User struct {
 	ID           int64     `json:"id"`
 	Username     string    `json:"username"`
@@ -33,7 +33,7 @@ type User struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
-// Account — банковский счёт.
+// Account - банковский счёт.
 type Account struct {
 	ID        int64     `json:"id"`
 	UserID    int64     `json:"user_id"`
@@ -43,7 +43,7 @@ type Account struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-// Card — банковская карта. Чувствительные поля хранятся в зашифрованном виде
+// Card - банковская карта. Чувствительные поля хранятся в зашифрованном виде
 // и никогда не сериализуются в JSON.
 type Card struct {
 	ID              int64     `json:"id"`
@@ -58,7 +58,7 @@ type Card struct {
 	CreatedAt       time.Time `json:"created_at"`
 }
 
-// CardView — представление карты для владельца (после расшифровки).
+// CardView - представление карты для владельца (после расшифровки).
 type CardView struct {
 	ID        int64     `json:"id"`
 	AccountID int64     `json:"account_id"`
@@ -79,7 +79,7 @@ type IssuedCard struct {
 	Warning   string `json:"warning"`
 }
 
-// Transaction — операция по счёту.
+// Transaction - операция по счёту.
 type Transaction struct {
 	ID             int64     `json:"id"`
 	AccountID      int64     `json:"account_id"`
@@ -90,7 +90,7 @@ type Transaction struct {
 	CreatedAt      time.Time `json:"created_at"`
 }
 
-// Credit — кредитный договор.
+// Credit - кредитный договор.
 type Credit struct {
 	ID             int64     `json:"id"`
 	UserID         int64     `json:"user_id"`
@@ -104,7 +104,7 @@ type Credit struct {
 	CreatedAt      time.Time `json:"created_at"`
 }
 
-// PaymentSchedule — строка графика платежей.
+// PaymentSchedule - строка графика платежей.
 type PaymentSchedule struct {
 	ID              int64      `json:"id"`
 	CreditID        int64      `json:"credit_id"`
@@ -118,7 +118,7 @@ type PaymentSchedule struct {
 	PaidAt          *time.Time `json:"paid_at,omitempty"`
 }
 
-// Payable — сумма к списанию с учётом штрафа.
+// Payable - сумма к списанию с учётом штрафа.
 func (p PaymentSchedule) Payable() float64 {
 	return p.TotalAmount + p.PenaltyAmount
 }

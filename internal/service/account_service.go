@@ -157,7 +157,7 @@ func (s *AccountService) Transfer(ctx context.Context, userID int64, req *models
 	var fromAcc *models.Account
 
 	err := repository.WithTx(ctx, s.db, func(tx *sql.Tx) error {
-		// Блокируем счета в порядке возрастания ID — защита от взаимоблокировок.
+		// Блокируем счета в порядке возрастания ID - защита от взаимоблокировок.
 		first, second := req.FromAccountID, req.ToAccountID
 		if first > second {
 			first, second = second, first

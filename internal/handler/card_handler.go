@@ -6,7 +6,7 @@ import (
 	"bankapi/internal/models"
 )
 
-// CreateCard — POST /cards.
+// CreateCard - POST /cards.
 func (h *Handler) CreateCard(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	var req models.CreateCardRequest
@@ -26,7 +26,7 @@ func (h *Handler) CreateCard(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, card)
 }
 
-// ListCards — GET /cards (номера маскированы).
+// ListCards - GET /cards (номера маскированы).
 func (h *Handler) ListCards(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	cards, err := h.svc.Card.List(r.Context(), userID)
@@ -37,7 +37,7 @@ func (h *Handler) ListCards(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, cards)
 }
 
-// GetCard — GET /cards/{cardId}?reveal=true — расшифровка для владельца.
+// GetCard - GET /cards/{cardId}?reveal=true - расшифровка для владельца.
 func (h *Handler) GetCard(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	cardID, err := pathInt64(r, "cardId")
@@ -54,7 +54,7 @@ func (h *Handler) GetCard(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, card)
 }
 
-// PayWithCard — POST /cards/{cardId}/pay.
+// PayWithCard - POST /cards/{cardId}/pay.
 func (h *Handler) PayWithCard(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	cardID, err := pathInt64(r, "cardId")
@@ -82,12 +82,12 @@ func (h *Handler) PayWithCard(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// BlockCard — POST /cards/{cardId}/block.
+// BlockCard - POST /cards/{cardId}/block.
 func (h *Handler) BlockCard(w http.ResponseWriter, r *http.Request) {
 	h.setCardStatus(w, r, models.StatusBlocked)
 }
 
-// UnblockCard — POST /cards/{cardId}/unblock.
+// UnblockCard - POST /cards/{cardId}/unblock.
 func (h *Handler) UnblockCard(w http.ResponseWriter, r *http.Request) {
 	h.setCardStatus(w, r, models.StatusActive)
 }

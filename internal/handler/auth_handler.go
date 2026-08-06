@@ -6,7 +6,7 @@ import (
 	"bankapi/internal/models"
 )
 
-// Register — POST /register.
+// Register - POST /register.
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	var req models.RegisterRequest
 	if err := decodeJSON(w, r, &req); err != nil {
@@ -25,7 +25,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, resp)
 }
 
-// Login — POST /login.
+// Login - POST /login.
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	var req models.LoginRequest
 	if err := decodeJSON(w, r, &req); err != nil {
@@ -44,7 +44,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, resp)
 }
 
-// Me — GET /me, профиль текущего пользователя.
+// Me - GET /me, профиль текущего пользователя.
 func (h *Handler) Me(w http.ResponseWriter, r *http.Request) {
 	userID, ok := h.userID(r)
 	if !ok {

@@ -14,7 +14,7 @@ import (
 
 type contextKey string
 
-// UserIDKey — ключ контекста, под которым хранится ID аутентифицированного пользователя.
+// UserIDKey - ключ контекста, под которым хранится ID аутентифицированного пользователя.
 const UserIDKey contextKey = "userID"
 
 // UserID извлекает ID пользователя из контекста запроса.

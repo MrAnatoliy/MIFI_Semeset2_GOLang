@@ -12,10 +12,10 @@ var (
 	usernameRe = regexp.MustCompile(`^[a-zA-Z0-9_.\-]{3,64}$`)
 )
 
-// ErrValidation — базовая ошибка валидации входных данных.
+// ErrValidation - базовая ошибка валидации входных данных.
 var ErrValidation = errors.New("validation error")
 
-// RegisterRequest — тело запроса POST /register.
+// RegisterRequest - тело запроса POST /register.
 type RegisterRequest struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
@@ -36,7 +36,7 @@ func (r *RegisterRequest) Validate() error {
 }
 
 func validatePassword(p string) error {
-	if len(p) < 8 || len(p) > 72 { // 72 — предел bcrypt
+	if len(p) < 8 || len(p) > 72 { // 72 - предел bcrypt
 		return errors.New("password: от 8 до 72 символов")
 	}
 	var hasDigit, hasLetter bool
@@ -54,7 +54,7 @@ func validatePassword(p string) error {
 	return nil
 }
 
-// LoginRequest — тело запроса POST /login. Логин — email или username.
+// LoginRequest - тело запроса POST /login. Логин - email или username.
 type LoginRequest struct {
 	Login    string `json:"login"`
 	Password string `json:"password"`
@@ -68,14 +68,14 @@ func (r *LoginRequest) Validate() error {
 	return nil
 }
 
-// AuthResponse — ответ на регистрацию/логин.
+// AuthResponse - ответ на регистрацию/логин.
 type AuthResponse struct {
 	Token     string `json:"token"`
 	ExpiresIn int64  `json:"expires_in"`
 	User      *User  `json:"user"`
 }
 
-// AmountRequest — операции пополнения/списания.
+// AmountRequest - операции пополнения/списания.
 type AmountRequest struct {
 	Amount      float64 `json:"amount"`
 	Description string  `json:"description"`
@@ -91,7 +91,7 @@ func (r *AmountRequest) Validate() error {
 	return nil
 }
 
-// TransferRequest — тело запроса POST /transfer.
+// TransferRequest - тело запроса POST /transfer.
 type TransferRequest struct {
 	FromAccountID int64   `json:"from_account_id"`
 	ToAccountID   int64   `json:"to_account_id"`
@@ -112,7 +112,7 @@ func (r *TransferRequest) Validate() error {
 	return nil
 }
 
-// CreateCardRequest — тело запроса POST /cards.
+// CreateCardRequest - тело запроса POST /cards.
 type CreateCardRequest struct {
 	AccountID int64 `json:"account_id"`
 }
@@ -124,7 +124,7 @@ func (r *CreateCardRequest) Validate() error {
 	return nil
 }
 
-// CardPaymentRequest — тело запроса POST /cards/{cardId}/pay.
+// CardPaymentRequest - тело запроса POST /cards/{cardId}/pay.
 type CardPaymentRequest struct {
 	CVV         string  `json:"cvv"`
 	Amount      float64 `json:"amount"`
@@ -142,7 +142,7 @@ func (r *CardPaymentRequest) Validate() error {
 	return nil
 }
 
-// CreateCreditRequest — тело запроса POST /credits.
+// CreateCreditRequest - тело запроса POST /credits.
 type CreateCreditRequest struct {
 	AccountID  int64   `json:"account_id"`
 	Amount     float64 `json:"amount"`
@@ -165,7 +165,7 @@ func (r *CreateCreditRequest) Validate() error {
 	return nil
 }
 
-// MonthlyStat — статистика за календарный месяц.
+// MonthlyStat - статистика за календарный месяц.
 type MonthlyStat struct {
 	Month   string  `json:"month"`
 	Income  float64 `json:"income"`
@@ -173,7 +173,7 @@ type MonthlyStat struct {
 	Net     float64 `json:"net"`
 }
 
-// CreditLoad — аналитика кредитной нагрузки.
+// CreditLoad - аналитика кредитной нагрузки.
 type CreditLoad struct {
 	ActiveCredits        int     `json:"active_credits"`
 	TotalPrincipal       float64 `json:"total_principal"`
@@ -185,7 +185,7 @@ type CreditLoad struct {
 	DebtToIncomeRatioPct float64 `json:"debt_to_income_ratio_pct"`
 }
 
-// AnalyticsResponse — агрегированный ответ GET /analytics.
+// AnalyticsResponse - агрегированный ответ GET /analytics.
 type AnalyticsResponse struct {
 	From          string             `json:"from"`
 	To            string             `json:"to"`
@@ -199,14 +199,14 @@ type AnalyticsResponse struct {
 	AccountsCount int                `json:"accounts_count"`
 }
 
-// PredictionDay — прогноз на конкретный день.
+// PredictionDay - прогноз на конкретный день.
 type PredictionDay struct {
-	Date            string  `json:"date"`
+	Date             string  `json:"date"`
 	ScheduledOutflow float64 `json:"scheduled_outflow"`
-	Balance         float64 `json:"balance"`
+	Balance          float64 `json:"balance"`
 }
 
-// PredictionResponse — ответ GET /accounts/{accountId}/predict.
+// PredictionResponse - ответ GET /accounts/{accountId}/predict.
 type PredictionResponse struct {
 	AccountID      int64           `json:"account_id"`
 	Days           int             `json:"days"`

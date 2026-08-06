@@ -39,7 +39,7 @@ var incomeTypes = map[string]bool{
 }
 
 // Overview собирает статистику доходов/расходов и кредитной нагрузки за период.
-// По умолчанию период — последние 12 месяцев.
+// По умолчанию период - последние 12 месяцев.
 func (s *AnalyticsService) Overview(ctx context.Context, userID int64, from, to time.Time) (*models.AnalyticsResponse, error) {
 	byType, err := s.txs.SumByType(ctx, userID, from, to)
 	if err != nil {
@@ -94,7 +94,7 @@ func (s *AnalyticsService) Overview(ctx context.Context, userID int64, from, to 
 }
 
 // Predict строит прогноз баланса счёта на N дней с учётом запланированных
-// платежей по кредитам. Максимальный горизонт — 365 дней.
+// платежей по кредитам. Максимальный горизонт - 365 дней.
 func (s *AnalyticsService) Predict(ctx context.Context, userID, accountID int64, days int) (*models.PredictionResponse, error) {
 	if days < 1 || days > s.cfg.MaxPredictDays {
 		return nil, ErrPredictRange

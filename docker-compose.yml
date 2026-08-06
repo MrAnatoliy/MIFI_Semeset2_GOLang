@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 10
 
-  # Локальная «заглушка» SMTP: веб-интерфейс на http://localhost:8025
+  # Локальная  "заглушка " SMTP: веб-интерфейс на http://localhost:8025
   mailhog:
     image: mailhog/mailhog:latest
     container_name: bank-mailhog

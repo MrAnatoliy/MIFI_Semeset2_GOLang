@@ -25,7 +25,7 @@ func NewTokenManager(secret string, ttl time.Duration) *TokenManager {
 // TTL возвращает срок жизни токена.
 func (m *TokenManager) TTL() time.Duration { return m.ttl }
 
-// Generate выпускает токен для пользователя (срок действия — 24 часа по умолчанию).
+// Generate выпускает токен для пользователя (срок действия - 24 часа по умолчанию).
 func (m *TokenManager) Generate(userID int64, email string) (string, error) {
 	now := time.Now()
 	claims := jwt.RegisteredClaims{

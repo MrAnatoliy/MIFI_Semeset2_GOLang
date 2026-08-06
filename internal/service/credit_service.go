@@ -49,7 +49,7 @@ func NewCreditService(repos *repository.Repositories, cbr *CBRService, mailer *M
 //
 //	P = S * i * (1+i)^n / ((1+i)^n - 1),
 //
-// где S — сумма кредита, i — месячная ставка, n — срок в месяцах.
+// где S - сумма кредита, i - месячная ставка, n - срок в месяцах.
 func AnnuityPayment(principal, annualRatePct float64, months int) float64 {
 	if months <= 0 {
 		return 0
@@ -97,7 +97,7 @@ func BuildSchedule(creditID int64, principal, annualRatePct float64, months int,
 	return schedule
 }
 
-// CreditWithSchedule — кредит вместе с графиком платежей.
+// CreditWithSchedule - кредит вместе с графиком платежей.
 type CreditWithSchedule struct {
 	Credit   *models.Credit           `json:"credit"`
 	Schedule []models.PaymentSchedule `json:"schedule"`
@@ -201,7 +201,7 @@ func (s *CreditService) Schedule(ctx context.Context, userID, creditID int64) (*
 	return &CreditWithSchedule{Credit: credit, Schedule: schedule}, nil
 }
 
-// ProcessDuePayments — задача шедулера: списывает наступившие платежи,
+// ProcessDuePayments - задача шедулера: списывает наступившие платежи,
 // а при нехватке средств начисляет штраф +10% (единоразово) и отмечает просрочку.
 func (s *CreditService) ProcessDuePayments(ctx context.Context) {
 	due, err := s.credits.ListDuePayments(ctx, time.Now())
@@ -263,7 +263,7 @@ func (s *CreditService) processOne(ctx context.Context, item repository.DuePayme
 		return
 	}
 
-	// Недостаточно средств — фиксируем просрочку и начисляем штраф один раз.
+	// Недостаточно средств - фиксируем просрочку и начисляем штраф один раз.
 	applied, pErr := s.credits.ApplyPenalty(ctx, nil, item.Schedule.ID, s.cfg.PenaltyRate)
 	if pErr != nil {
 		s.log.Errorf("шедулер: не удалось начислить штраф по платежу id=%d: %v", item.Schedule.ID, pErr)

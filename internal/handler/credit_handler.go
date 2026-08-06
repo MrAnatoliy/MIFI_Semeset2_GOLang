@@ -8,7 +8,7 @@ import (
 	"bankapi/internal/models"
 )
 
-// CreateCredit — POST /credits.
+// CreateCredit - POST /credits.
 func (h *Handler) CreateCredit(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	var req models.CreateCreditRequest
@@ -28,7 +28,7 @@ func (h *Handler) CreateCredit(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, res)
 }
 
-// ListCredits — GET /credits.
+// ListCredits - GET /credits.
 func (h *Handler) ListCredits(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	credits, err := h.svc.Credit.List(r.Context(), userID)
@@ -39,7 +39,7 @@ func (h *Handler) ListCredits(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, credits)
 }
 
-// CreditSchedule — GET /credits/{creditId}/schedule.
+// CreditSchedule - GET /credits/{creditId}/schedule.
 func (h *Handler) CreditSchedule(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	creditID, err := pathInt64(r, "creditId")
@@ -55,7 +55,7 @@ func (h *Handler) CreditSchedule(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, res)
 }
 
-// Analytics — GET /analytics?from=YYYY-MM-DD&to=YYYY-MM-DD.
+// Analytics - GET /analytics?from=YYYY-MM-DD&to=YYYY-MM-DD.
 func (h *Handler) Analytics(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 
@@ -91,7 +91,7 @@ func (h *Handler) Analytics(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, res)
 }
 
-// PredictBalance — GET /accounts/{accountId}/predict?days=N.
+// PredictBalance - GET /accounts/{accountId}/predict?days=N.
 func (h *Handler) PredictBalance(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	accountID, err := pathInt64(r, "accountId")

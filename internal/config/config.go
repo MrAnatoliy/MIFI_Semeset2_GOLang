@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-// DBConfig — параметры подключения к PostgreSQL.
+// DBConfig - параметры подключения к PostgreSQL.
 type DBConfig struct {
 	Host     string
 	Port     string
@@ -25,7 +25,7 @@ func (d DBConfig) DSN() string {
 	)
 }
 
-// SMTPConfig — параметры почтового сервера.
+// SMTPConfig - параметры почтового сервера.
 type SMTPConfig struct {
 	Host     string
 	Port     int
@@ -35,7 +35,7 @@ type SMTPConfig struct {
 	Enabled  bool
 }
 
-// Config — конфигурация всего приложения.
+// Config - конфигурация всего приложения.
 type Config struct {
 	AppPort       string
 	LogLevel      string

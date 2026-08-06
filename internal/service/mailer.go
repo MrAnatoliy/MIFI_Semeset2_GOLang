@@ -70,7 +70,7 @@ func (m *Mailer) SendAsync(to, subject, body string) {
 
 // --- Шаблоны писем ---
 
-// NotifyWelcome — приветственное письмо после регистрации.
+// NotifyWelcome - приветственное письмо после регистрации.
 func (m *Mailer) NotifyWelcome(to, username string) {
 	body := fmt.Sprintf(`
 		<h2>Добро пожаловать, %s!</h2>
@@ -79,7 +79,7 @@ func (m *Mailer) NotifyWelcome(to, username string) {
 	m.SendAsync(to, "Регистрация завершена", body)
 }
 
-// NotifyPayment — уведомление об успешной операции.
+// NotifyPayment - уведомление об успешной операции.
 func (m *Mailer) NotifyPayment(to, title string, amount float64, details string) {
 	body := fmt.Sprintf(`
 		<h2>%s</h2>
@@ -90,7 +90,7 @@ func (m *Mailer) NotifyPayment(to, title string, amount float64, details string)
 	m.SendAsync(to, title, body)
 }
 
-// NotifyOverdue — уведомление о просрочке и начислении штрафа.
+// NotifyOverdue - уведомление о просрочке и начислении штрафа.
 func (m *Mailer) NotifyOverdue(to string, creditID int64, amount, penalty float64) {
 	body := fmt.Sprintf(`
 		<h2>Просрочен платёж по кредиту №%d</h2>

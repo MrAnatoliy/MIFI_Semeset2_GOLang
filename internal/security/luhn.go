@@ -26,7 +26,7 @@ func randomDigits(n int) (string, error) {
 // luhnCheckDigit вычисляет контрольную цифру для частичного номера.
 func luhnCheckDigit(partial string) int {
 	sum := 0
-	double := true // следующая позиция справа — удваиваемая
+	double := true // следующая позиция справа - удваиваемая
 	for i := len(partial) - 1; i >= 0; i-- {
 		d := int(partial[i] - '0')
 		if double {
@@ -112,6 +112,6 @@ func GenerateAccountNumber() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	// 40817 — счёт физлица, 810 — код рубля, 1 — контрольный разряд-заглушка.
+	// 40817 - счёт физлица, 810 - код рубля, 1 - контрольный разряд-заглушка.
 	return "40817" + "810" + "1" + tail, nil
 }

@@ -84,7 +84,7 @@ migrations/SQL-миграции
 | GET| `/accounts/{accountId}`| Счёт по идентификатору|
 | POST| `/accounts/{accountId}/deposit` | Пополнение |
 | POST| `/accounts/{accountId}/withdraw`| Списание|
-| GET| `/accounts/{accountId}/predict?days=N`| Прогноз баланса (1–365 дней)|
+| GET| `/accounts/{accountId}/predict?days=N`| Прогноз баланса (1 -365 дней)|
 | POST| `/transfer`| Перевод между счетами|
 | GET| `/transactions?limit=N`| История операций|
 | POST| `/cards`| Выпуск виртуальной карты|
@@ -114,7 +114,7 @@ curl -s -X POST localhost:8080/accounts/$ACC/deposit \
   -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
   -d '{"amount":50000,"description":"Зарплата"}'
 
-# Выпуск карты — открытые данные возвращаются ОДИН раз
+# Выпуск карты - открытые данные возвращаются ОДИН раз
 curl -s -X POST localhost:8080/cards \
   -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
   -d "{\"account_id\":$ACC}"
@@ -136,7 +136,7 @@ curl -s -X POST localhost:8080/credits \
 - **Номер и срок карты** - симметричное PGP-шифрование AES-256 на парольной
 фразе `PGP_PASSPHRASE`, хранятся как `bytea`.
 - **CVV** - bcrypt-хеш; открытое значение показывается один раз при выпуске.
-- **Целостность карты** - HMAC-SHA256 от пары «номер|срок», сверка выполняется
+- **Целостность карты** - HMAC-SHA256 от пары  "номер|срок ", сверка выполняется
 в постоянном времени (`hmac.Equal`) при каждом чтении и оплате.
 - **JWT** - HS256, секрет `JWT_SECRET`, срок действия 24 часа, проверка issuer
 и допустимого алгоритма подписи (защита от подмены на `none`).
@@ -157,7 +157,7 @@ curl -s -X POST localhost:8080/credits \
 Аннуитетный платёж:
 
 ```
-P = S * i * (1+i)^n / ((1+i)^n − 1),i = годовая ставка / 12 / 100
+P = S * i * (1+i)^n / ((1+i)^n  - 1),i = годовая ставка / 12 / 100
 ```
 
 График строится с разбивкой на тело и проценты; последний платёж закрывает

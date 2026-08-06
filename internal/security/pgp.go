@@ -49,7 +49,7 @@ func (c *PGPCipher) Decrypt(ciphertext []byte) (string, error) {
 	}
 	attempted := false
 	prompt := func(keys []openpgp.Key, symmetric bool) ([]byte, error) {
-		// Функция вызывается повторно при неверной фразе — прерываем цикл.
+		// Функция вызывается повторно при неверной фразе - прерываем цикл.
 		if attempted {
 			return nil, errors.New("pgp: неверная парольная фраза")
 		}

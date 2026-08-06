@@ -127,7 +127,7 @@ func (r *CreditRepository) GetSchedule(ctx context.Context, creditID int64) ([]m
 	return list, rows.Err()
 }
 
-// DuePayment — строка графика вместе с реквизитами кредита, нужными шедулеру.
+// DuePayment - строка графика вместе с реквизитами кредита, нужными шедулеру.
 type DuePayment struct {
 	Schedule  models.PaymentSchedule
 	CreditID  int64
@@ -200,7 +200,7 @@ func (r *CreditRepository) ApplyPenalty(ctx context.Context, q Querier, schedule
 	}
 	n, _ := res.RowsAffected()
 	if n == 0 {
-		// Штраф уже есть — фиксируем только статус.
+		// Штраф уже есть - фиксируем только статус.
 		if _, err := r.q(q).ExecContext(ctx,
 			`UPDATE payment_schedules SET status = 'overdue' WHERE id = $1 AND status <> 'paid'`,
 			scheduleID); err != nil {

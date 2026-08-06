@@ -142,7 +142,7 @@ func mapDBError(err error) error {
 		switch pqErr.Code {
 		case "23505": // unique_violation
 			return ErrDuplicate
-		case "23514": // check_violation — сработал CHECK (balance >= 0)
+		case "23514": // check_violation - сработал CHECK (balance >= 0)
 			return ErrInsufficientFunds
 		}
 	}

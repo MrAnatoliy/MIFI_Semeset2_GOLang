@@ -7,7 +7,7 @@ import (
 	"bankapi/internal/models"
 )
 
-// CreateAccount — POST /accounts.
+// CreateAccount - POST /accounts.
 func (h *Handler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	acc, err := h.svc.Account.Create(r.Context(), userID)
@@ -18,7 +18,7 @@ func (h *Handler) CreateAccount(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusCreated, acc)
 }
 
-// ListAccounts — GET /accounts.
+// ListAccounts - GET /accounts.
 func (h *Handler) ListAccounts(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	accounts, err := h.svc.Account.List(r.Context(), userID)
@@ -29,7 +29,7 @@ func (h *Handler) ListAccounts(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, accounts)
 }
 
-// GetAccount — GET /accounts/{accountId}.
+// GetAccount - GET /accounts/{accountId}.
 func (h *Handler) GetAccount(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	accountID, err := pathInt64(r, "accountId")
@@ -45,12 +45,12 @@ func (h *Handler) GetAccount(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, acc)
 }
 
-// Deposit — POST /accounts/{accountId}/deposit.
+// Deposit - POST /accounts/{accountId}/deposit.
 func (h *Handler) Deposit(w http.ResponseWriter, r *http.Request) {
 	h.amountOperation(w, r, true)
 }
 
-// Withdraw — POST /accounts/{accountId}/withdraw.
+// Withdraw - POST /accounts/{accountId}/withdraw.
 func (h *Handler) Withdraw(w http.ResponseWriter, r *http.Request) {
 	h.amountOperation(w, r, false)
 }
@@ -85,7 +85,7 @@ func (h *Handler) amountOperation(w http.ResponseWriter, r *http.Request, deposi
 	writeJSON(w, http.StatusOK, acc)
 }
 
-// Transfer — POST /transfer.
+// Transfer - POST /transfer.
 func (h *Handler) Transfer(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	var req models.TransferRequest
@@ -108,7 +108,7 @@ func (h *Handler) Transfer(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// History — GET /transactions?limit=N.
+// History - GET /transactions?limit=N.
 func (h *Handler) History(w http.ResponseWriter, r *http.Request) {
 	userID, _ := h.userID(r)
 	limit := 100

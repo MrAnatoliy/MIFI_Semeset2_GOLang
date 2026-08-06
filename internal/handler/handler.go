@@ -97,7 +97,7 @@ func (h *Handler) handleServiceError(w http.ResponseWriter, err error) {
 	}
 }
 
-// Health — проверка живости сервиса.
+// Health - проверка живости сервиса.
 func (h *Handler) Health(w http.ResponseWriter, r *http.Request) {
 	writeJSON(w, http.StatusOK, map[string]string{"status": "ok"})
 }
